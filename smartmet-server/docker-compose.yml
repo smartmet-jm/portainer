@@ -1,0 +1,45 @@
+version: '3'
+services:
+  smartmetserver:
+    image: fmidev/smartmetserver:latest
+    container_name: smartmetserver
+    labels:
+      - "traefik.http.routers.smartmetserver.entrypoints=websecure"
+      - "traefik.http.routers.smartmetserver.rule=Host(`data.${APPDOMAIN:-local}`,`data.jmlocal.meteo.fi`)"
+      - "traefik.http.services.smartmetserver.loadbalancer.server.port=8080"
+    volumes:
+      - /smartmet/data/meteor/caribbean/surface/querydata:/smartmet/data/meteor/surface
+      - /smartmet/data/gfs/caribbean/surface/querydata:/smartmet/data/gfs/surface
+      - /smartmet/data/gfs/caribbean/pressure/querydata:/smartmet/data/gfs/pressure
+      - /smartmet/data/gem/caribbean/surface/querydata:/smartmet/data/gem/surface
+      - /smartmet/data/gem/caribbean/pressure/querydata:/smartmet/data/gem/pressure
+      - /smartmet/data/nam/caribbean/surface/querydata:/smartmet/data/nam/surface
+      - /smartmet/data/nam/caribbean/pressure/querydata:/smartmet/data/nam/pressure
+      - smartmetserver-storage-cnf:/etc/smartmet
+    networks:
+      - traefik-network
+    restart: unless-stopped
+    depends_on:
+      - "smartmet-server-db"
+  smartmet-server-db:
+    image: smartmet-server-db
+    container_name: smartmet-server-db
+    logging:
+        driver: "json-file"
+        options:
+            max-file: "5"
+            max-size: "10m"
+    restart: unless-stopped
+    ports:
+     - "5432:5432"
+    volumes:
+      - /smartmet/data/db:/var/lib/postgresql/data
+    networks:
+      - traefik-network
+
+volumes:
+  smartmetserver-storage-cnf:
+    
+networks:
+    traefik-network:
+      external: true
