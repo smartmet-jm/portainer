@@ -7,7 +7,7 @@ services:
     restart: unless-stopped
     labels:
       - "traefik.http.routers.geoweb.entrypoints=websecure"
-      - "traefik.http.routers.geoweb.rule=Host(`grafana.${APPDOMAIN:-local}`)"
+      - "traefik.http.routers.geoweb.rule=Host(`geoweb.${APPDOMAIN:-local}`,`geoweb.jmlocal.meteo.fi`)"
       - "traefik.http.services.geoweb.loadbalancer.server.port=8080"
     networks:
       - traefik-network
