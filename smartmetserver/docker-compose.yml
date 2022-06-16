@@ -5,7 +5,7 @@ services:
     container_name: smartmetserver
     labels:
       - "traefik.http.routers.smartmetserver.entrypoints=websecure"
-      - "traefik.http.routers.smartmetserver.rule=Host(`data.${APPDOMAIN:-local}`,`data.jmlocal.meteo.fi`)"
+      - "traefik.http.routers.smartmetserver.rule=Host(`data.metservice.gov.jm`)"
       - "traefik.http.services.smartmetserver.loadbalancer.server.port=8080"
     volumes:
       - /smartmet/data/meteor/caribbean/surface/querydata:/smartmet/data/meteor/surface
