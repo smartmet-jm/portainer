@@ -12,7 +12,7 @@ services:
     networks:
       - traefik-network
     volumes:
-      - nginx-storage:/etc/nginx:ro
+      - nginx-storage:/etc/nginx/conf.d:ro
 
 volumes:
   nginx-storage:
