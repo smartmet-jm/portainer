@@ -8,7 +8,7 @@ services:
       - "traefik.http.routers.smartmetserver.rule=Host(`data.metservice.gov.jm`)"
       - "traefik.http.services.smartmetserver.loadbalancer.server.port=8080"
     volumes:
-      - /smartmet/data/meteor/caribbean/surface/querydata:/smartmet/data/meteor/surface
+      - /smartmet/data/meteor/jamaica/surface/querydata:/smartmet/data/meteor/surface
       - /smartmet/data/gfs/caribbean/surface/querydata:/smartmet/data/gfs/surface
       - /smartmet/data/gfs/caribbean/pressure/querydata:/smartmet/data/gfs/pressure
       - /smartmet/data/gem/caribbean/surface/querydata:/smartmet/data/gem/surface
