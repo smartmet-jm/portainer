@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  nginx:
+    image: nginx
+    container_name: nginx
+    restart: unless-stopped
+    labels:
+      - "traefik.http.routers.nginx.entrypoints=websecure"
+      - "traefik.http.routers.nginx.rule=Host(`jamaica.weatherproof.fi`)"
+      - "traefik.http.services.nginx.loadbalancer.server.port=8080"
+    networks:
+      - traefik-network
+    volumes:
+      - nginx-storage:/etc/nginx:ro
+
+volumes:
+  nginx-storage:
+  
+networks:
+    traefik-network:
+      external: true
