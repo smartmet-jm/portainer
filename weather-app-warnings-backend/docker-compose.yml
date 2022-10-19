@@ -9,6 +9,20 @@ services:
       - "traefik.http.routers.weather-app-warnings-backend.entrypoints=websecure"
       - "traefik.http.routers.weather-app-warnings-backend.rule=Host(`alert.metservice.gov.jm`) && PathPrefix(`/app`)"
       - "traefik.http.services.weather-app-warnings-backend.loadbalancer.server.port=3000"
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - TIMEZONE=Europe/Helsinki
+      - INTERVAL=2m
+      - CACHE_TTL=120
+      - CACHE_MAX=1000
+      - PRECISION=500
+      - DATA_DIR=data
+      - STORE_INPUT=false
+      - LANGUAGES=en
+      - EN_DATA=https://alerts.fmi.fi/cap/feed/atom_en-GB.xml,https://wwwi2.ymparisto.fi/i2/CAP/SYKE_CAP_current.atom
+      - HISTORY=false
+      - EXCLUDE=type=flooding AND severity=minor
     networks:
       - traefik-network
     volumes:
