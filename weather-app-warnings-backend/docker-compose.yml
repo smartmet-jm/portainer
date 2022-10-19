@@ -7,7 +7,7 @@ services:
     restart: unless-stopped
     labels:
       - "traefik.http.routers.weather-app-warnings-backend.entrypoints=websecure"
-      - "traefik.http.routers.weather-app-warnings-backend.rule=Host(`alert.metservice.gov.jm`) && PathPrefix(`/app`)"
+      - "traefik.http.routers.weather-app-warnings-backend.rule=Host(`alert.metservice.gov.jm`) && PathPrefix(`/v1`)"
       - "traefik.http.services.weather-app-warnings-backend.loadbalancer.server.port=3000"
     environment:
       - NODE_ENV=development
