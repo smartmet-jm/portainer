@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  weather-app-warnings-backend:
+    image: fmidev/weather-app-warnings-backend
+    container_name: weather-app-warnings-backend
+    restart: unless-stopped
+    labels:
+      - "traefik.http.routers.weather-app-warnings-backend.entrypoints=websecure"
+      - "traefik.http.routers.weather-app-warnings-backend.rule=Host(`alert.metservice.gov.jm`)&&"
+      - "traefik.http.services.weather-app-warnings-backend.loadbalancer.server.port=3000"
+    networks:
+      - traefik-network
+    volumes:
+      - data:/home/node/app/data
+
+volumes:
+  data:
+    driver_opts:
+      type: tmpfs
+      device: tmpfs
+  
+networks:
+    traefik-network:
+      external: true
