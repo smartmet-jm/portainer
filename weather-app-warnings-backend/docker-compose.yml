@@ -20,7 +20,7 @@ services:
       - DATA_DIR=data
       - STORE_INPUT=false
       - LANGUAGES=en
-      - EN_DATA=https://alerts.fmi.fi/cap/feed/atom_en-GB.xml,https://alert.metservice.gov.jm/capfeed.php
+      - EN_DATA=https://alert.metservice.gov.jm/capfeed.php
       - HISTORY=false
       - EXCLUDE=type=flooding AND severity=minor
     networks:
